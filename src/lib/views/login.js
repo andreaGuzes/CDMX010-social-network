@@ -1,3 +1,4 @@
+
 export const loginTemplate = (target) => {
     const html = `
         <div class="cabecera">
@@ -10,7 +11,7 @@ export const loginTemplate = (target) => {
           <div class="login">
             <input id= "emailSignIn" class="input" type="text" placeholder="Email">
             <input id= "passwordSignIn" class="input" type="password" placeholder="Contraseña" maxlength="16">
-            <button id="access">LOGIN</button> 
+            <button id="access"></button> 
           </div>
           <div class="not-password-yet">
             <div id="newAccount">+</div>

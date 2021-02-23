@@ -1,15 +1,16 @@
-import { loginTemplate} from "./lib/views/login.js";
-import {registerTemplate } from "./lib/views/register.js";
+// import { loginTemplate} from "./lib/views/login.js";
+// import {registerTemplate } from "./lib/views/register.js";
 import {onNavigate, routes} from './router.js'
+import {registration, signIn} from "./lib/firebase.js" 
 
 // import {signIn} from "./lib/firebase.js";
 // import {render} from "./router.js"
 // Este es el punto de entrada de tu aplicacion
-// import {registration, signIn} from "./lib/firebase.js" 
+// 
 
 const rootDiv= document.getElementById("root");
-loginTemplate(rootDiv)
-registerTemplate()
+// loginTemplate(rootDiv)
+// registerTemplate()
 
 
 // document.getElementById('root').innerHTML = loginTemplate;
