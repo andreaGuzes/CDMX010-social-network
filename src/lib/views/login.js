@@ -11,7 +11,7 @@ export const loginTemplate = (target) => {
         </div>
         <div class="bottom">
           <div class="login">
-            <input id= "emailSignIn" class="input" type="text" placeholder="Email"style="text-align: center">
+            <input id= "emailSignIn" class="input" type="email" placeholder="Email" style="text-align: center">
             <input id= "passwordSignIn" class="input" type="password" placeholder="Contraseña" maxlength="16" style="text-align: center">
             <button id="access">LOGIN</button> 
           </div>
@@ -27,7 +27,11 @@ export const loginTemplate = (target) => {
 
         document.getElementById('access').addEventListener('click', (e) => {
           e.preventDefault();
-          onNavigate('/home')
+          const emailSignIn = document.getElementById("emailSignIn").value
+             console.log(emailSignIn);
+            const passwordSignIn = document.getElementById("passwordSignIn").value;
+            signIn(emailSignIn, passwordSignIn);
+                console.log("este usuario si pudo ingresar");
         });
 
         document.getElementById('newAccountLink').addEventListener('click', (e) => {
@@ -35,19 +39,31 @@ export const loginTemplate = (target) => {
           onNavigate('/register')
         });
         
-        const access = document.getElementById("access");
-        access.addEventListener("click", () => { 
-            let emailSignIn = document.getElementById("emailSignIn").value;
-            let passwordSignIn = document.getElementById("passwordSignIn").value;
-            signIn (emailSignIn, passwordSignIn);
-                console.log("este usuario si pudo ingresar");
-});
+//         const access = document.getElementById("access");
+//          access.addEventListener("click", () => { 
+
+//             const emailSignIn = document.getElementById("emailSignIn").value
+//              console.log(emailSignIn);
+//             const passwordSignIn = document.getElementById("passwordSignIn").value;
+//             signIn(emailSignIn, passwordSignIn);
+//                 console.log("este usuario si pudo ingresar");
+//  });
+
+// firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+//   .then(() => {
+//     // Existing and future Auth states are now persisted in the current
+//     // session only. Closing the window would clear any existing state even
+//     // if a user forgets to sign out.
+//     // ...
+//     // New sign-in will be persisted with session persistence.
+//     return firebase.auth().signInWithEmailAndPassword(emailSignIn, passwordSignIn);
+//   })
+//   .catch((error) => {
+//     // Handle Errors here.
+//     let errorCode = error.code;
+//     console.log(errorCode)
+//     let errorMessage = error.message;
+//     console.log(errorMessage)
+//   });
 };
-
-
-
-    
-
-
-
 

@@ -281,7 +281,95 @@
       width: 200px;
     }
     
-    }
+}
+
+#postContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+  
+  margin-bottom: 30px;
+}
+
+#btnContenedor {
+  position: relative;
+  display: inline-block;
+}
+
+#btn p {
+  background-color: white;
+
+  font-size: .8em;
+  letter-spacing: 2px; 
+  font-family: "Oxygen", sans-serif;
+  letter-spacing: 2px;
+  font-weight: bold;
+  text-align: center;
+  color: black;
+
+  width: 50px;
+  height: 20px;
+}
+
+/* #btnLista {
+  display: none;
+  position: absolute;
+  background-color: grey;
+  list-style: none;
+
+  z-index: 1;
+
+  min-width: 120px;
+} */
+
+
+
+#btnLista {
+  /* display: none;
+  position: absolute; */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+
+  min-width: 120px;
+
+}
+
+#btnLista p {
+  /* display: none; */
+  font-size: .7em;
+  letter-spacing: 2px;
+  font-family: "Oxygen", sans-serif;
+  color: black;
+
+  padding: 12px 16px;
+  text-decoration: none;
+  /* display: block; */
+}
+
+#btnLista p:hover {
+  background-color: black;
+  color: white;
+}
+
+.btnLista:hover .btnContenedor {
+  display: block;
+}
+
+#postTitle, #postDescription {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  /* align-items: center; */
+  line-height: 15px;
+
+  margin-top: 100px;
+  margin-bottom: 30px;
+}
+
 
     /* footer {
         color: white;

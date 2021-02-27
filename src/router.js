@@ -17,14 +17,6 @@ export const routes = {
 const rootDiv = document.getElementById("root");
 // rootDiv.innerHTML= routes [window.location.pathname];
 
-
-// export function render (x, y) { 
-//     x.addEventListener("click", () => {
-//     onNavigate(y);
-//     return false;
-//     });
-// };
-
 export const onNavigate = (pathname) => { 
     window.history.pushState(
         {},
@@ -39,3 +31,27 @@ window.onpopstate = () => {
     const view= routes[window.location.pathname]
     view(rootDiv)
 };
+
+// export const onNavifate = (pathname) => {
+
+//     window.history.pushState (
+//         {},
+//         pathname,
+//         window.location.origin + pathname
+//         )
+//         rootDiv.innerHTML = routes[pathname];
+//         if(pathname=="/"){
+//             console.log("login")
+//             loginWithMail();
+//             navLinkVisibilityWithoutLogin();
+            
+//         }else if(pathname=="/home") {
+//             console.log("registro")
+//             loginWithMail();
+//             navLinkVisibilityWithoutLogin();
+//         }else if(pathname=="/home") {
+//             onsole.log("home")
+//             loginWithMail();
+//             navLinkVisibilityWithoutLogin();
+//         }
+// }

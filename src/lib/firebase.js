@@ -28,8 +28,8 @@ export function registration(email, password) {
     });
   };
   
-  export function signIn (emailSignIn, passwordSingnIn) {
-    firebase.auth().signInWithEmailAndPassword(emailSignIn, passwordSingnIn)
+  export function signIn (emailSignIn, passwordSignIn) {
+    firebase.auth().signInWithEmailAndPassword(emailSignIn, passwordSignIn)
     .then((user) => {
       // Signed in
       // ...
@@ -42,22 +42,19 @@ export function registration(email, password) {
     });
   };
   
+  export function signOut() { 
+    firebase.auth().signOut()
+    .then(() => {
+      console.log("saliendo")
+    // Sign-out successful.
+  })
+  .catch((error) => {
+    console.log("error")
+    // An error happened.
+  });
+};
   
-
-  
-    // Esta función debe ir en login.js (manipula DOM)
-  // function home (user) {
-  //  //let user = user;
-  //  let contenido = document.getElementById("home");
-  //  if (user.emailVerified){ 
-  //  contenido.innerHTML = `
-  //  <p>Inicio de sesión</p>
-  //  <button>Cerrar sesión</button>
-  //  `
-  //  }; 
-  // };
-  
-  function verify () {
+  export function verify () {
     let user = firebase.auth().currentUser;
     user.sendEmailVerification().then(function() {
     // Email sent.
@@ -68,12 +65,60 @@ export function registration(email, password) {
   });
   };
   
+
 /*
 export const myFunction = () => {
   // aqui tu codigo
   console.log('Hola mundo!');
 };
 */
+const db = firebase.firestore();
+// db.collection("posts").orderBy("", "desc")
+
+export const savePost = (title, postDescription) =>
+          db.collection("posts").doc().set({
+            title,
+            postDescription,
+            
+          });
+          
+export const getPost = () => db.collection("posts").get();
+
+
+
+// firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+//   .then(() => {
+//     // Existing and future Auth states are now persisted in the current
+//     // session only. Closing the window would clear any existing state even
+//     // if a user forgets to sign out.
+//     // ...
+//     // New sign-in will be persisted with session persistence.
+//     return firebase.auth().signInWithEmailAndPassword(email, password);
+//   })
+//   .catch((error) => {
+//     // Handle Errors here.
+//     let errorCode = error.code;
+//     console.log(errorCode)
+//     let errorMessage = error.message;
+//     console.log(errorMessage)
+//   });
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
