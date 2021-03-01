@@ -86,7 +86,7 @@ export const savePost = (title, postDescription) =>
           
 export const getPost = () => db.collection("posts").get();
 
-export const onGetPosts = (callback) => db.collection("posts").onSnapshot(callback);
+// export const onGetPosts = () => db.collection("posts").onSnapshot();
  
 
 
