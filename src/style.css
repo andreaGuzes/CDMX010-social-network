@@ -1,0 +1,390 @@
+* {
+    /* box-sizing: border-box; */
+    margin: 0;
+  }
+  /* LOGIN / This applies from 0px to 600px */
+  body {
+    background: white;
+  }
+  .cabecera {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .top {
+    width: 100%;
+    height: 50vh;
+    background: url("img/women/04-janis.jpg") no-repeat 40% top;
+    background-position: center;
+  }
+  .layer {
+    width: 100%;
+    height: 50vh;
+    background: linear-gradient(
+        90deg,
+        rgba(171, 39, 138, 1) 35%,
+        rgba(178, 196, 245, 1) 100%
+      )
+      no-repeat;
+    opacity: 76%;
+  }
+  .layer img {
+    width: 200px;
+  }
+  .login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .input {
+    border: 0em;
+    font-family: "Oxygen", sans-serif;
+    line-height: 30px;
+    letter-spacing: 2px;
+    font-size: .8em;
+  }
+  #register {
+    font-size: 1em;
+    letter-spacing: 2px;
+  }
+  button {
+    width: 200px;
+    height: 35px;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    background: black;
+    color: white;
+    border: 0em;
+  }
+  button:hover {
+    background: linear-gradient(
+        90deg,
+        rgba(171, 39, 138, 1) 35%,
+        rgba(178, 196, 245, 1) 100%
+      )
+  }
+  .bottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2.5em;
+    font-family: "Oxygen", sans-serif;
+    /* font-family: ‘Ubuntu’, sans-serif; */
+    line-height: 30px;
+  }
+  #register {
+    font-weight: 700;
+  }
+  .not-password-yet {
+    font-size: 0.7em;
+    margin-bottom: 50px;
+  }
+  /* LOGIN / This applies from 600px onwards */
+  @media (min-width: 600px) {
+    * {
+      margin: 0;
+    }
+    body {
+      height: 100%;
+    }
+    .cabecera {
+      display: flex;
+      flex-direction: row;
+      /* float: left;
+          width: 50%; */
+      height: 100vh;
+    }
+    .top {
+      width: 50%;
+      height: 100vh;
+      background: url("img/women/02-janis.jpg") no-repeat 50% top;
+    }
+    button:hover {
+      background: linear-gradient(
+          90deg,
+          rgba(171, 39, 138, 1) 35%,
+          rgba(178, 196, 245, 1) 100%
+        )
+    }
+    .bottom {
+      width: 50%;
+      height: 100vh;
+    }
+    .layer {
+      height: 100vh;
+      background: linear-gradient(
+        90deg,
+        rgba(171, 39, 138, 1) 35%,
+        rgba(178, 196, 245, 1) 100%
+      );
+      opacity: 76%;
+    }
+    .layer img {
+      width: 200px;
+    }
+  }
+  /* SUBMIT / This applies from 0 to 600px */
+  .bottom-register {
+    width: 100%;
+    /* height: 100vh;  */
+    display: flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;
+  }
+  .submit {
+    margin-top: 2.5em;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    line-height: 30px;
+    margin-bottom: 30px;
+  }
+  .input {
+    border: 0em;
+    font-family: "Oxygen", sans-serif;
+    line-height: 30px;
+    letter-spacing: 2px;
+    font-size: .8em;
+  }
+  .submit p {
+    font-size: 0.7em;
+    margin-bottom: 50px;
+  }
+  button:hover {
+    background: linear-gradient(
+        90deg,
+        rgba(171, 39, 138, 1) 35%,
+        rgba(178, 196, 245, 1) 100%
+      )
+  }
+  /* SUBMIT / This applies from 600px onwards */
+  @media (min-width: 600px) {
+    .bottom-register {
+      width: 50%;
+      height: 100vh;
+      display: flex;
+      flex-direction:column;
+      justify-content: center;
+      align-items: center;
+    }
+    .submit {
+      margin-top: 2.5em;
+      display: flex;
+      flex-direction:column;
+      justify-content: center;
+      align-items: center;
+      line-height: 30px;
+      margin-bottom: 30px;
+    }
+    .submit p {
+      font-size: 0.7em;
+      margin-bottom: 50px;
+    }
+    .input {
+      border: 0em;
+      font-family: "Oxygen", sans-serif;
+      line-height: 30px;
+      letter-spacing: 2px;
+      font-size: .8em;
+    }
+    button:hover {
+      background: linear-gradient(
+          90deg,
+          rgba(171, 39, 138, 1) 35%,
+          rgba(178, 196, 245, 1) 100%
+        )
+    }
+  }
+
+  .cabecera2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .top2 {
+    width: 100%;
+    height: 30vh;
+  
+    background: url("img/women/04-janis.jpg") no-repeat 40% top;
+    background-position: center;
+  }
+  
+  .layer2 {
+    width: 100%;
+    height: 30vh;
+  
+    background: linear-gradient(
+        90deg,
+        rgba(171, 39, 138, 1) 35%,
+        rgba(178, 196, 245, 1) 100%
+      )
+      no-repeat;
+    opacity: 76%;
+  }
+  
+  .layer2 img {
+    width: 200px;
+  }
+
+  footer {
+    color: white;
+    background: black;
+     font-family: "Oxygen", sans-serif;
+     font-size: .8em;
+    line-height: 30px;
+    letter-spacing: 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+  }
+  
+  .login2{
+    flex-grow: 1;
+  }
+
+  @media (min-width: 600px) {
+    .cabecera2 {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+    
+    .top2 {
+      width: 100%;
+      height: 30vh;
+    
+      background: url("img/women/04-janis.jpg") no-repeat 40% top;
+      background-position: center;
+    }
+    
+    .layer2 {
+      width: 100%;
+      height: 30vh;
+    
+      background: linear-gradient(
+          90deg,
+          rgba(171, 39, 138, 1) 35%,
+          rgba(178, 196, 245, 1) 100%
+        )
+        no-repeat;
+      opacity: 76%;
+    }
+    
+    .layer2 img {
+      width: 200px;
+    }
+    
+}
+
+#postContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+  
+  margin-bottom: 30px;
+}
+
+#btnContenedor {
+  position: relative;
+  display: inline-block;
+}
+
+#btn p {
+  background-color: white;
+
+  font-size: .8em;
+  letter-spacing: 2px; 
+  font-family: "Oxygen", sans-serif;
+  letter-spacing: 2px;
+  font-weight: bold;
+  text-align: center;
+  color: black;
+
+  width: 50px;
+  height: 20px;
+}
+
+/* #btnLista {
+  display: none;
+  position: absolute;
+  background-color: grey;
+  list-style: none;
+
+  z-index: 1;
+
+  min-width: 120px;
+} */
+
+
+
+#btnLista {
+  /* display: none;
+  position: absolute; */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+
+  min-width: 120px;
+
+}
+
+#btnLista p {
+  /* display: none; */
+  font-size: .7em;
+  letter-spacing: 2px;
+  font-family: "Oxygen", sans-serif;
+  color: black;
+
+  padding: 12px 16px;
+  text-decoration: none;
+  /* display: block; */
+}
+
+#btnLista p:hover {
+  background-color: black;
+  color: white;
+}
+
+.btnLista:hover .btnContenedor {
+  display: block;
+}
+
+#postTitle, #postDescription {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  /* align-items: center; */
+  line-height: 15px;
+
+  margin-top: 100px;
+  margin-bottom: 30px;
+}
+
+
+    /* footer {
+        color: white;
+        background: black;
+         font-family: "Oxygen", sans-serif;
+         font-size: .8em;
+        line-height: 30px;
+        letter-spacing: 2px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        align-self: flex-end;
+
+      } */
+    
+  
+  
