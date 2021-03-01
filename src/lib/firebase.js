@@ -74,6 +74,8 @@ export const myFunction = () => {
 */
 const db = firebase.firestore();
 // db.collection("posts").orderBy("", "desc")
+export const onGetPosts = (callback) => db.collection("posts").onSnapshot(callback);
+
 
 export const savePost = (title, postDescription) =>
           db.collection("posts").doc().set({
