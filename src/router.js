@@ -32,6 +32,11 @@ window.onpopstate = () => {
     view(rootDiv)
 };
 
+
+// document.querySelector('.come-back-two').addEventListener('click', (e) => {
+//   e.preventDefault();
+//   onNavigate('/')
+// });
 // export const onNavifate = (pathname) => {
 
 //     window.history.pushState (

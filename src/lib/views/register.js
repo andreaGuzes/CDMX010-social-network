@@ -1,4 +1,5 @@
 import {registration} from "../firebase.js"
+//import {onNavigate} from "./src/router.js"
 export const registerTemplate = (target) =>{
   const registerContent = `
   <div class="cabecera">  
@@ -16,7 +17,7 @@ export const registerTemplate = (target) =>{
         <input id= "password" class="input" type="password" placeholder="Password" maxlength="16" style="text-align: center">
         <input class="input" type="password" placeholder="Confirm Password" maxlength="16" style="text-align: center">
         <button id="register">SUBMIT</button> 
-        <div id="come-back-two">+</div>
+        <div id="come-back-two"><a href="#" class="come-back-two">+</a></div>
         <p>Come back</p>
       </div>
     </div>
@@ -35,5 +36,13 @@ export const registerTemplate = (target) =>{
         let password = document.getElementById("password").value;
         registration(email, password);
 });
+
+// document.querySelector('.come-back-two').addEventListener('click', (e) => {
+//   e.preventDefault();
+//   onNavigate('/')
+// });
+
 };
+
+
 

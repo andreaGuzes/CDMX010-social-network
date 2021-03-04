@@ -28,7 +28,6 @@ export const loginTemplate = (target) => {
         document.getElementById('access').addEventListener('click', (e) => {
           e.preventDefault();
           const emailSignIn = document.getElementById("emailSignIn").value
-             console.log(emailSignIn);
             const passwordSignIn = document.getElementById("passwordSignIn").value;
             signIn(emailSignIn, passwordSignIn);
                 console.log("este usuario si pudo ingresar");

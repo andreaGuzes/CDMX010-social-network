@@ -57,14 +57,24 @@ export const homeTemplate = async (target) => {
               <h3 id="postTitle">${post.title}</h3>
               <p id="postDescription">${post.postDescription}</p>
             </div>
+            <div class="containerLikeBtn">
+              <button id="likeBtn" class="likeBtn">
+                <i class= "fa fa-thumbs-up"></i>
+              </button>
+              <input type="number" id="inputLike" class= "inputLike" value = "0" name = "">
+            </div>
           </div>
+          
           `).join('');
 
           //DELATE
         const btnDelete = document.querySelectorAll(".btnDelete");
         btnDelete.forEach(btn => {
           btn.addEventListener("click", async (e) => {
+            let confirmDelete = confirm('¿Desea eliminar esta publicación?');
+            if (confirmDelete) {
            await  deletePost(e.target.dataset.id)
+          }
           })
         })
 
@@ -96,18 +106,31 @@ export const homeTemplate = async (target) => {
             await upDatePost (id, {
               title: title.value,
               postDescription: postDescription.value
-
-            })
+            });
+            editStatus =false;
+            id = "";
+            postForm["btn-post-form"].innerText="SAVE";
           }
 
-      //     let likeBtns= document.querySelectorAll(".likeBtn");
-      //   let countLike = document.querySelectorAll(".inputLike");
-      //   likeBtns.forEach(btn => {
-      //   btn.addEventListene("click", () => {
-      //     countLike.value = parseInt(countLike.value) + 1;
-      //     countLike.style.color = "#12ff00"
-      //   });
-      // })
+          // let button = document.getElementById("clickme"),
+          // count = 0;
+          // button.addEventListener("click", function() {
+          //   count += 1;
+          //   button.innerHTML = "Click me: " + count;
+          // });
+
+
+        let likeBtns= document.querySelectorAll(".likeBtn");
+        console.log(likeBtns)
+        let countLike = document.querySelectorAll(".inputLike");
+        likeBtns.forEach(btn => {
+        btn.addEventListene("click", () => {
+          countLike.value = parseInt(countLike.value.innerHTML) + 1;
+          countLike.style.color = "#12ff00"
+        });
+        
+      })
+     
        
       // let countClick = 0;  
       // function counClickAdd(){
@@ -115,8 +138,12 @@ export const homeTemplate = async (target) => {
       //  }
       //  $("")
 
+      await getPost();
+
   
           postForm.reset();
+
+         
 
           title.focus();
         });

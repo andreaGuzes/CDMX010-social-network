@@ -15,11 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
           if (emailVerified === true){
             onNavigate('/home')
           }
-          console.log(user);
+          console.log(user.uid);
   
           console.log(user.emailVerified);
         } else  {
-          console.log("no existe usuario activo");
+          alert("no existe usuario activo");
           onNavigate('/')
           // No user is signed in.
         }
