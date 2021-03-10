@@ -1,6 +1,6 @@
 // Este es el punto de entrada de tu aplicacion
 import {onNavigate, routes} from './router.js'
-import { registration, signIn, verify } from "./lib/firebase.js" 
+ 
 
 
 
