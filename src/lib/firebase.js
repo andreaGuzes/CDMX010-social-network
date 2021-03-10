@@ -12,6 +12,10 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+export function getUser () {
+  return firebase.auth().currentUser
+}
+
 export function registration(email, password) {
   firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(() => {
@@ -65,7 +69,9 @@ export function registration(email, password) {
   });
   };
   
-
+ 
+ //construir una funcion para exportarla donde reciba como como parametro el ui y el documento
+// edithlikes
 /*
 export const myFunction = () => {
   // aqui tu codigo
@@ -73,27 +79,71 @@ export const myFunction = () => {
 };
 */
 const db = firebase.firestore();
-// db.collection("posts").orderBy("", "desc")
-// export const onGetPosts = (callback) => db.collection("posts").onSnapshot(callback);
 
-
-export const savePost = (title, postDescription) =>
+export const savePost = (title, postDescription, likes) =>
           db.collection("posts").doc().set({
             title,
             postDescription,
-            
+            likes,
           });
-          
-export const getPost = () => db.collection("posts").get();
 
-export const onGetPosts = (callback) => db.collection("posts").onSnapshot(callback);
+          
+export const getPostById = async (id) => {
+  const doc = await db.collection("posts").doc(id).get();
+  return doc.data()
+}
+
+
+export const likePost = (id, email) => {
+  const updateRef = db.collection('posts').doc(id)
+
+  return updateRef.update({
+    likes: firebase.firestore.FieldValue.arrayUnion(email)
+  })
+}
+
+// export const getAllPosts = async () => {
+//   await db.collection('posts').onSnapshot((querySnapshot) => {
+//     const posts = [];
+//     querySnapshot.forEach(doc => {
+//       const post = doc.data();
+//       post.id = doc.id;
+//       posts.push(post);
+//     }); 
+//   }) 
+// }
+
+export const getAllPosts = async () => {
+  const querySnapshot = await db.collection('posts').get()
+  const posts = [];
+  querySnapshot.forEach(doc => {
+    const post = doc.data();
+    post.id = doc.id;
+    posts.push(post);
+  });
+  return posts;
+}
+
+//export const onGetPosts = (callback) => db.collection("posts").onSnapshot(callback);
+
+
+// export const actualizar = id => db.collection("posts").doc(id).onSnapshot();
+// db.collection("posts").doc(id)
+// .onSnapshot((doc) => {
+//     console.log("Current data: ", doc.data());
+// });  
+// (doc) => {
+//     console.log("Current data: ", doc.data());
+// });
 
 export const deletePost = id => db.collection("posts").doc(id).delete();
 
 export const editPost = id => db.collection("posts").doc(id).get();
 
 export const upDatePost = (id, updatedPost) => db.collection("posts").doc(id).update(updatedPost);
-// export const onGetPosts = () => db.collection("posts").onSnapshot();
+
+
+// export const getLikes = () => db.collection("likes").doc(id).get();
  
 
 

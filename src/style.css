@@ -85,6 +85,8 @@ body {
   .not-password-yet {
     font-size: 0.7em;
   }
+}
+
 
 /* LOGIN / This applies from 600px onwards */
 
@@ -321,8 +323,10 @@ h1 {
 
 .containerLikeBtn {
   margin-left: 285px;
-
   width: 350px;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
 }
 
 .fa-thumbs-up {
@@ -332,6 +336,7 @@ h1 {
 #likeBtn {
   padding-top: 5px;
   padding-bottom: 28px;
+  
 
   width: 7px;
   height: 5px;
@@ -342,12 +347,12 @@ h1 {
   background: none;
   outline: 0;
 
-  /* padding-left: 40px; */
+  
 }
 
-#inputLike {
+.inputLikes {
   border: none;
-  /* border: none; */
+  
   background: none;
   outline: 0;
   pointer-events: none;
@@ -355,8 +360,10 @@ h1 {
   color: grey;
 
   width: 30px;
-  padding: 10px;
+  padding: 5px 18px;
 }
+
+
 
 #btn-post-form {
   font-family: "Oxygen", sans-serif;
@@ -543,11 +550,3 @@ h1 {
 #btnContenedor:hover #btnLista {
   display: block;
 }
-
-
-
-
-    
-    
-  
-  
