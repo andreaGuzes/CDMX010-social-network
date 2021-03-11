@@ -66,25 +66,28 @@ export const homeTemplate = async (target) => {
 
  // onGetPosts((querySnapshot) => {
   //const prueba = async (onGetPosts) => {  
-      
+     async function renderPosts () { 
   const posts = await getAllPosts();
-  //const posts = getAllPosts();
- 
   const postTemplates = posts.map(post => CardPost(post, user.email));               
   postContainer.innerHTML = postTemplates.join('');
-  
+// }
+// renderPosts();
+
    //DELATE
   const btnDelete = document.querySelectorAll(".btnDelete");
+  
   btnDelete.forEach(btn => {
     btn.addEventListener("click", async (e) => {
       let confirmDelete = confirm('¿Desea eliminar esta publicación?');
       if (confirmDelete) {
         await  deletePost(e.target.dataset.id)
+        renderPosts();
       }
     })
   })
   
   // EDIT
+  
   const btnsEdit = document.querySelectorAll(".btnEdit");
   btnsEdit.forEach(btn => {
     btn.addEventListener("click", async e => {
@@ -93,11 +96,36 @@ export const homeTemplate = async (target) => {
       editStatus = true;
       id = doc.id;
       //console.log(id)
+      
       postForm["post-title"].value = post.title;
       postForm["post-description"].value = post.postDescription;
       postForm["btn-post-form"].innerText ="Update";
-    })
+    
+      
+    }) 
   })
+  
+  let likeBtns = document.querySelectorAll(".likeButtons");
+  likeBtns.forEach(btn => {
+    btn.addEventListener("click", async (e) => {
+      const postId = e.currentTarget.dataset.id
+      const foundPost = await getPostById(postId)
+      //debugger
+      if (! foundPost.likes.includes(user.email)) {
+        foundPost.likes.push(user.email)
+        likePost(postId, user.email)
+        //renderPosts(); 
+      } else {
+        console.log('Este usario ', user.email, ' ya dio like')
+      } 
+       let conteo = foundPost.likes.length;
+        const countLike = document.querySelector(`.inputLikes[data-id="${postId}"]`);
+        countLike.innerHTML = conteo;
+    });
+    
+  });
+}
+renderPosts();
    
   //save
   postForm.addEventListener("submit", async (e) => {
@@ -110,43 +138,24 @@ export const homeTemplate = async (target) => {
     if (!editStatus) {
       await savePost (title.value, postDescription.value, []);
       postForm.reset();
-      
+      renderPosts();
     } else {
       await upDatePost (id, {
         title: title.value,
         postDescription: postDescription.value
+        
       });
       editStatus =false;
       id = "";
       postForm["btn-post-form"].innerText="SAVE";
+      postForm.reset();
+      renderPosts();
     }
     
   });
   
   
-  let likeBtns = document.querySelectorAll(".likeButtons");
-  //console.log('buttonsLike', likeBtns)
-  //let userIdData = likeBtns.push(user.emailVerified)
-  
-  
-  likeBtns.forEach(btn => {
-    btn.addEventListener("click", async (e) => {
-      const postId = e.currentTarget.dataset.id
-      const foundPost = await getPostById(postId)
-      //debugger
-      if (! foundPost.likes.includes(user.email)) {
-        foundPost.likes.push(user.email)
-        likePost(postId, user.email)
-      } else {
-        console.log('Este usario ', user.email, ' ya dio like')
-      }
-
-      let conteo = foundPost.likes.length;
-      const countLike = document.querySelector(`.inputLikes[data-id="${postId}"]`);
-      countLike.innerHTML = conteo; 
-     
-    });
-  });
+ 
 
   
   // disabled="${post.likes.includes(email)}"
