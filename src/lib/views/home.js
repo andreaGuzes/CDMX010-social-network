@@ -1,6 +1,4 @@
-import {savePost, getPostById, getUser, signOut, deletePost, editPost, upDatePost, likePost, getAllPosts} from "../firebase.js"
-
-const CardPost = (post, email) => {
+export const CardPost = (post, email) => {
   return `
   <div id= "postContainer">
   <div id = "btnContenedor" class="btnContenedor">
@@ -18,13 +16,13 @@ const CardPost = (post, email) => {
   <button id="likeBtn" class="likeButtons" data-id="${post.id}">
   <i class= "fa fa-thumbs-up"></i>
   </button>
-  <div class="inputLikes" data-id="${post.id}"></div>
+  <div class="inputLikes" data-id="${post.id}">${post.likes.length}</div>
   </div>
   </div>
   `
 }
 
-export const homeTemplate = async (target) => {
+export const homeTemplate = async (target, firebase) => {
   const html = `
   <div class = "cabeceraHome">  
   <div class = "topHome">
@@ -47,7 +45,7 @@ export const homeTemplate = async (target) => {
   </div>
   <button id = "btn-post-form">SAVE</button>
   </form>
-  <div id = "postConteiner"></div>
+  <div id="postConteiner"></div>
   </div>
   <p id= "signOutBtn">SING OFF</p>
   <footer id = "footer-home"><b>encounter</b>, the feminist sound space</footer>
@@ -60,117 +58,95 @@ export const homeTemplate = async (target) => {
   let editStatus = false;
   
   let id = "";
-  const user = getUser()
+  const user = firebase.getUser()
   
-  
+   
+  async function renderPosts () {
+    const posts = await firebase.getAllPosts();
+    const postTemplates = posts.map(post => CardPost(post, user.email)); 
+    // console.log('debug 1', postContainer, posts);            
+    postContainer.innerHTML = postTemplates.join('');
+  // }
+  // renderPosts();
 
- // onGetPosts((querySnapshot) => {
-  //const prueba = async (onGetPosts) => {  
-     async function renderPosts () { 
-  const posts = await getAllPosts();
-  const postTemplates = posts.map(post => CardPost(post, user.email));               
-  postContainer.innerHTML = postTemplates.join('');
-// }
-// renderPosts();
-
-   //DELATE
+    //DELATE
   const btnDelete = document.querySelectorAll(".btnDelete");
-  
   btnDelete.forEach(btn => {
     btn.addEventListener("click", async (e) => {
-      let confirmDelete = confirm('¿Desea eliminar esta publicación?');
+      let confirmDelete = swal('¿Desea eliminar esta publicación?');
       if (confirmDelete) {
-        await  deletePost(e.target.dataset.id)
+        await firebase.deletePost(e.target.dataset.id)
         renderPosts();
       }
-    })
-  })
+    });
+  });
   
   // EDIT
-  
   const btnsEdit = document.querySelectorAll(".btnEdit");
   btnsEdit.forEach(btn => {
     btn.addEventListener("click", async e => {
-      const doc = await editPost(e.target.dataset.id);
+      const doc = await firebase.editPost(e.target.dataset.id);
       const post = doc.data();
       editStatus = true;
       id = doc.id;
-      //console.log(id)
-      
       postForm["post-title"].value = post.title;
       postForm["post-description"].value = post.postDescription;
       postForm["btn-post-form"].innerText ="Update";
-    
-      
-    }) 
-  })
+    }); 
+  });
   
-  let likeBtns = document.querySelectorAll(".likeButtons");
+  const likeBtns = document.querySelectorAll(".likeButtons");
   likeBtns.forEach(btn => {
     btn.addEventListener("click", async (e) => {
       const postId = e.currentTarget.dataset.id
-      const foundPost = await getPostById(postId)
+      const foundPost = await firebase.getPostById(postId)
+      
       //debugger
       if (! foundPost.likes.includes(user.email)) {
-        foundPost.likes.push(user.email)
-        likePost(postId, user.email)
-        //renderPosts(); 
+        foundPost.likes.push(user.email);
+        firebase.likePost(postId, user.email);
+ 
       } else {
         console.log('Este usario ', user.email, ' ya dio like')
+        
       } 
-       let conteo = foundPost.likes.length;
-        const countLike = document.querySelector(`.inputLikes[data-id="${postId}"]`);
-        countLike.innerHTML = conteo;
+      //const  conteo = foundPost.likes.length;
+      //const countLike = document.querySelector(`.inputLikes[data-id="${postId}"]`);
+        //countLike.innerHTML = conteo; 
+        renderPosts();  
     });
-    
   });
-}
-renderPosts();
+};
+
+  renderPosts();
    
   //save
   postForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const title = postForm["post-title"];
-    // console.log(title.value);
     const postDescription = postForm["post-description"];
-    // console.log(postDescription.value);
-    title.focus();
+    //title.focus();
     if (!editStatus) {
-      await savePost (title.value, postDescription.value, []);
+      await firebase.savePost(title.value, postDescription.value, []);
       postForm.reset();
       renderPosts();
     } else {
-      await upDatePost (id, {
+      await firebase.upDatePost(id, {
         title: title.value,
         postDescription: postDescription.value
-        
       });
       editStatus =false;
       id = "";
       postForm["btn-post-form"].innerText="SAVE";
       postForm.reset();
       renderPosts();
-    }
-    
+    };
   });
-  
-  
- 
-
   
   // disabled="${post.likes.includes(email)}"
   
-
   const signOff = document.getElementById("signOutBtn");
   signOff.addEventListener("click", ()  => {
-    signOut()
+    firebase.signOut()
   });
 };
-
-
-
-// <button id="likeBtn" class="likeBtn">
-//     <i class= "fa fa-thumbs-up"></i>
-//   </button>
-//   <input type="number" id="inputLike" class= "inputLike" value = "0" name = "">
-//   </div>

@@ -7,6 +7,12 @@ import {homeTemplate} from "./lib/views/home.js";
 //     target.innerHTML = html
 // }
 
+let firebase = null
+
+export const loadFirebase = (firebaseFromIndex) => {
+    firebase = firebaseFromIndex
+}
+
 export const routes = {
     "/": loginTemplate,
     "/register": registerTemplate,  
@@ -24,12 +30,12 @@ export const onNavigate = (pathname) => {
         window.location.origin + pathname
     )
     const view = routes[pathname]
-    view(rootDiv)
+    view(rootDiv, firebase);
 };
 
 window.onpopstate = () => {
     const view= routes[window.location.pathname]
-    view(rootDiv)
+    view(rootDiv, firebase);
 };
 
 

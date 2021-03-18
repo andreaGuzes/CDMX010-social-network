@@ -1,14 +1,14 @@
 // Este es el punto de entrada de tu aplicacion
-import {onNavigate, routes} from './router.js'
-import { registration, signIn, verify } from "./lib/firebase.js" 
+import {loadFirebase, onNavigate, routes} from './router.js'
+import * as firebaseClient from "./lib/firebase.js" 
+//import '../firebase.js/auth' 
 
 
-
-
-const rootDiv = document.getElementById("root");
+loadFirebase(firebaseClient);
 
 document.addEventListener('DOMContentLoaded', () => {
-    firebase.auth().onAuthStateChanged(function(user) {  
+  //onAuthStateChanged(function(user){ 
+    firebase.auth().onAuthStateChanged(function(user){  
       if (user) {
           //console.log("usuario activo");
           let emailVerified = user.emailVerified;
@@ -19,10 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
           //console.log(user.emailVerified);
         } else  {
-          alert("no existe usuario activo");
+          swal("no existe usuario activo");
           onNavigate('/')
           // No user is signed in.
         }
       });
 });
-

@@ -1,6 +1,7 @@
 import { onNavigate } from '../../router.js'
 import {signIn} from "../firebase.js"
 
+
 export const loginTemplate = (target) => {
     const html = `
         <div class="cabecera">

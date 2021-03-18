@@ -12,9 +12,13 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+//export const auth = firebase.auth();
+//export const onAuthStateChanged = firebase.auth().onAuthStateChanged;
+
+
 export function getUser () {
   return firebase.auth().currentUser
-}
+};
 
 export function registration(email, password) {
   firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -80,6 +84,7 @@ export const myFunction = () => {
 */
 const db = firebase.firestore();
 
+
 export const savePost = (title, postDescription, likes) =>
           db.collection("posts").doc().set({
             title,
@@ -96,11 +101,11 @@ export const getPostById = async (id) => {
 
 export const likePost = (id, email) => {
   const updateRef = db.collection('posts').doc(id)
-
   return updateRef.update({
     likes: firebase.firestore.FieldValue.arrayUnion(email)
   })
 }
+
 
 // export const getAllPosts = async () => {
 //   await db.collection('posts').onSnapshot((querySnapshot) => {
@@ -123,18 +128,6 @@ export const getAllPosts = async () => {
   });
   return posts;
 }
-
-//export const onGetPosts = (callback) => db.collection("posts").onSnapshot(callback);
-
-
-// export const actualizar = id => db.collection("posts").doc(id).onSnapshot();
-// db.collection("posts").doc(id)
-// .onSnapshot((doc) => {
-//     console.log("Current data: ", doc.data());
-// });  
-// (doc) => {
-//     console.log("Current data: ", doc.data());
-// });
 
 export const deletePost = id => db.collection("posts").doc(id).delete();
 
