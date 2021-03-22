@@ -1,4 +1,4 @@
- // aqui exportaras las funciones que necesites
+ //  aqui exportaras las funciones que necesites
 const firebaseConfig = {
   apiKey: "AIzaSyCBbc4-QZcuS9hpij5G3SZUC3PS4yenuvQ",
   authDomain: "encounter-laboratoria2021.firebaseapp.com",
@@ -9,82 +9,66 @@ const firebaseConfig = {
   measurementId: "G-NESVHDG3JE"
 };
   
-// Initialize Firebase
+//  Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-//export const auth = firebase.auth();
-//export const onAuthStateChanged = firebase.auth().onAuthStateChanged;
-
-
+//  Obtiene los datos del usuario
 export function getUser () {
-  return firebase.auth().currentUser
+  return firebase.auth().currentUser;
 };
 
+//  Registro de usuarios
 export function registration(email, password) {
   firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(() => {
-      verify ()
-      // Signed in
-      // ...
+      verify ();
     })
     .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
+      let errorCode = error.code;
+      let errorMessage = error.message;
       console.log(errorCode);
       console.log(errorMessage);
-      // ..
     });
   };
   
+  //  Login de usuarios
   export function signIn (emailSignIn, passwordSignIn) {
     firebase.auth().signInWithEmailAndPassword(emailSignIn, passwordSignIn)
     .then((user) => {
-      // Signed in
-      // ...
     })
     .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
+      let errorCode = error.code;
+      let errorMessage = error.message;
       console.log(errorCode);
       console.log(errorMessage);
     });
   };
   
+  //  Salir de la sesión
   export function signOut() { 
     firebase.auth().signOut()
     .then(() => {
-      console.log("saliendo")
-    // Sign-out successful.
+      console.log("saliendo");
   })
   .catch((error) => {
-    console.log("error")
-    // An error happened.
+    console.log("error");
   });
 };
   
+  //  envía correo de verificación
   export function verify () {
     let user = firebase.auth().currentUser;
     user.sendEmailVerification().then(function() {
-    // Email sent.
     console.log("enviando correo");
   }).catch(function(error) {
-    // An error happened.
     console.log(error);
   });
   };
   
- 
- //construir una funcion para exportarla donde reciba como como parametro el ui y el documento
-// edithlikes
-/*
-export const myFunction = () => {
-  // aqui tu codigo
-  console.log('Hola mundo!');
-};
-*/
-const db = firebase.firestore();
+  //  Firestore
+  const db = firebase.firestore();
 
-
+//  guarda los post en firebase 
 export const savePost = (title, postDescription, likes) =>
           db.collection("posts").doc().set({
             title,
@@ -92,34 +76,23 @@ export const savePost = (title, postDescription, likes) =>
             likes,
           });
 
-          
+//  obtiene un post con un determinado id          
 export const getPostById = async (id) => {
   const doc = await db.collection("posts").doc(id).get();
-  return doc.data()
-}
+  return doc.data();
+};
 
-
+// guarda los correos de los usuarios que dan like en firebase 
 export const likePost = (id, email) => {
   const updateRef = db.collection('posts').doc(id)
   return updateRef.update({
     likes: firebase.firestore.FieldValue.arrayUnion(email)
-  })
-}
+  });
+};
 
-
-// export const getAllPosts = async () => {
-//   await db.collection('posts').onSnapshot((querySnapshot) => {
-//     const posts = [];
-//     querySnapshot.forEach(doc => {
-//       const post = doc.data();
-//       post.id = doc.id;
-//       posts.push(post);
-//     }); 
-//   }) 
-// }
-
+// obtiene todas las publicaciones
 export const getAllPosts = async () => {
-  const querySnapshot = await db.collection('posts').get()
+  const querySnapshot = await db.collection('posts').get();
   const posts = [];
   querySnapshot.forEach(doc => {
     const post = doc.data();
@@ -127,35 +100,18 @@ export const getAllPosts = async () => {
     posts.push(post);
   });
   return posts;
-}
+};
 
+//  elimina posts
 export const deletePost = id => db.collection("posts").doc(id).delete();
 
+//  obtiene el post a editar
 export const editPost = id => db.collection("posts").doc(id).get();
 
+// actualiza el post una vez editado
 export const upDatePost = (id, updatedPost) => db.collection("posts").doc(id).update(updatedPost);
 
 
-// export const getLikes = () => db.collection("likes").doc(id).get();
- 
-
-
-// firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-//   .then(() => {
-//     // Existing and future Auth states are now persisted in the current
-//     // session only. Closing the window would clear any existing state even
-//     // if a user forgets to sign out.
-//     // ...
-//     // New sign-in will be persisted with session persistence.
-//     return firebase.auth().signInWithEmailAndPassword(email, password);
-//   })
-//   .catch((error) => {
-//     // Handle Errors here.
-//     let errorCode = error.code;
-//     console.log(errorCode)
-//     let errorMessage = error.message;
-//     console.log(errorMessage)
-//   });
 
 
 

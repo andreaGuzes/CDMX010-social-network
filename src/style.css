@@ -1,10 +1,8 @@
 * {
-  /* box-sizing: border-box; */
   margin: 0;
 }
 
 /* LOGIN / This applies from 0px to 600px */
-
 body {
   background: #eeeeee;
 }
@@ -80,7 +78,6 @@ body {
   align-items: center;
   margin-top: 2.5em;
   font-family: "Oxygen", sans-serif;
-  /* font-family: ‘Ubuntu’, sans-serif; */
   line-height: 30px;
 }
 
@@ -93,14 +90,6 @@ body {
 
 @media (min-width: 600px) {
 
-  /* * {
-    margin: 0;
-  }
-
-  body {
-    height: 100%;
-  } */
-
   .cabecera {
     display: flex;
     flex-direction: row;
@@ -110,7 +99,6 @@ body {
   .top {
     width: 50%;
     height: 100vh;
-    /* background: url("img/women/02-janis.jpg") no-repeat 50% top; */
   }
 
   #access:hover {
@@ -123,7 +111,6 @@ body {
 
   .bottom {
     width: 50%;
-    /* height: 100vh; */
   }
 
   .layer {
@@ -146,7 +133,6 @@ body {
 /* SUBMIT / This applies from 0 to 600px */
 .bottom-register {
   width: 100%;
-  /* height: 100vh;  */
   display: flex;
   flex-direction:row;
   justify-content: center;
@@ -184,7 +170,6 @@ body {
   margin-bottom: 1em;
   background: black;
   color: #eeeeee;
-  /* color: #e5e5e5; */
   border: 0em;
 }
 
@@ -347,9 +332,7 @@ h1 {
 
   border: none;
   background: none;
-  outline: 0;
-
-  
+  outline: 0;  
 }
 
 .inputLikes {

@@ -1,5 +1,5 @@
-import {registration} from "../firebase.js"
-//import {onNavigate} from "./src/router.js"
+import { registration } from "../firebase.js"
+
 export const registerTemplate = (target) =>{
   const registerContent = `
   <div class="cabecera">  
@@ -26,22 +26,11 @@ export const registerTemplate = (target) =>{
     target.innerHTML = registerContent;
     
     const register = document.getElementById("register");
-    // document.getElementById('newAccountLink').addEventListener('click', (e) => {
-    //   e.preventDefault();
-    //   onNavigate('/register')
-    // });
-
     register.addEventListener("click", () => { 
         let email = document.getElementById("email").value;
         let password = document.getElementById("password").value;
         registration(email, password);
 });
-
-// document.querySelector('.come-back-two').addEventListener('click', (e) => {
-//   e.preventDefault();
-//   onNavigate('/')
-// });
-
 };
 
 

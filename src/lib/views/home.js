@@ -1,10 +1,11 @@
+//Pinta todos los posts publicados en el home
 export const CardPost = (post, email) => {
   return `
   <div id= "postContainer">
   <div id = "btnContenedor" class="btnContenedor">
   <p id ="btn">...</p>
   <div id= "btnLista" class= "btnLista">
-  <li id="btnEdits" class="btnEdit" data-id="${post.id}" >Edit</li>
+  <li id="btnEdits" class="btnEdit" data-id="${post.id}">Edit</li>
   <li id="btnDeletes" class="btnDelete" data-id="${post.id}">Delete</li>              
   </div>
   </div>
@@ -20,9 +21,10 @@ export const CardPost = (post, email) => {
   </div>
   </div>
   `
-}
+};
 
-export const homeTemplate = async (target, firebase) => {
+//Interfaz del formulario para escribir y guardar un nuevo post
+export const homeTemplate = (target, firebase) => {
   const html = `
   <div class = "cabeceraHome">  
   <div class = "topHome">
@@ -51,40 +53,58 @@ export const homeTemplate = async (target, firebase) => {
   <footer id = "footer-home"><b>encounter</b>, the feminist sound space</footer>
   `;
   
-  target.innerHTML = html
+  //Este método pinta la interfaz 
+  target.innerHTML = html;
   
+  //obtiene el id del formulario
   const postForm = document.getElementById("post-form");
+  
+  //obtine el id del div en donde se publicarán los post
   const postContainer = document.getElementById("postConteiner");
+
+  //variable que cambia cuando el usuario edita un post
   let editStatus = false;
   
   let id = "";
-  const user = firebase.getUser()
-  
+  const user = firebase.getUser();
    
+// renderiza todos los posts  
   async function renderPosts () {
     const posts = await firebase.getAllPosts();
-    const postTemplates = posts.map(post => CardPost(post, user.email)); 
-    // console.log('debug 1', postContainer, posts);            
-    postContainer.innerHTML = postTemplates.join('');
-  // }
-  // renderPosts();
-
-    //DELATE
+    const postTemplates = posts.map(post => CardPost(post, user.email));           
+    postContainer.innerHTML = postTemplates;
+  
+    // DELATE
   const btnDelete = document.querySelectorAll(".btnDelete");
   btnDelete.forEach(btn => {
     btn.addEventListener("click", async (e) => {
-      let confirmDelete = swal('¿Desea eliminar esta publicación?');
+      let confirmDelete = confirm('¿Desea eliminar esta publicación?');
       if (confirmDelete) {
-        await firebase.deletePost(e.target.dataset.id)
+        await firebase.deletePost(e.target.dataset.id);
         renderPosts();
-      }
+      };
     });
   });
+
+  // const btnDelete = document.querySelectorAll(".btnDelete");
+  // btnDelete.forEach(btn => {
+  //   btn.addEventListener("click".then ((e) => {
+  //     let confirmDelete = confirm('¿Desea eliminar esta publicación?')
+  //     //.then (() => {
+  //       if (confirmDelete) {
+  //         firebase.deletePost(e.target.dataset.id);
+  //         renderPosts();
+  //     };
+  //   //});
+    
+  //   }));
+  // });
+
   
   // EDIT
   const btnsEdit = document.querySelectorAll(".btnEdit");
   btnsEdit.forEach(btn => {
-    btn.addEventListener("click", async e => {
+    btn.addEventListener("click", async (e) => {
       const doc = await firebase.editPost(e.target.dataset.id);
       const post = doc.data();
       editStatus = true;
@@ -98,22 +118,15 @@ export const homeTemplate = async (target, firebase) => {
   const likeBtns = document.querySelectorAll(".likeButtons");
   likeBtns.forEach(btn => {
     btn.addEventListener("click", async (e) => {
-      const postId = e.currentTarget.dataset.id
-      const foundPost = await firebase.getPostById(postId)
-      
-      //debugger
+      const postId = e.currentTarget.dataset.id;
+      const foundPost = await firebase.getPostById(postId);
       if (! foundPost.likes.includes(user.email)) {
         foundPost.likes.push(user.email);
         firebase.likePost(postId, user.email);
- 
       } else {
-        console.log('Este usario ', user.email, ' ya dio like')
-        
-      } 
-      //const  conteo = foundPost.likes.length;
-      //const countLike = document.querySelector(`.inputLikes[data-id="${postId}"]`);
-        //countLike.innerHTML = conteo; 
-        renderPosts();  
+        console.log('Este usario ', user.email, ' ya dio like');
+      }  
+      renderPosts();  
     });
   });
 };
@@ -125,7 +138,6 @@ export const homeTemplate = async (target, firebase) => {
     e.preventDefault();
     const title = postForm["post-title"];
     const postDescription = postForm["post-description"];
-    //title.focus();
     if (!editStatus) {
       await firebase.savePost(title.value, postDescription.value, []);
       postForm.reset();
@@ -135,7 +147,7 @@ export const homeTemplate = async (target, firebase) => {
         title: title.value,
         postDescription: postDescription.value
       });
-      editStatus =false;
+      editStatus = false;
       id = "";
       postForm["btn-post-form"].innerText="SAVE";
       postForm.reset();
@@ -143,10 +155,8 @@ export const homeTemplate = async (target, firebase) => {
     };
   });
   
-  // disabled="${post.likes.includes(email)}"
-  
   const signOff = document.getElementById("signOutBtn");
   signOff.addEventListener("click", ()  => {
-    firebase.signOut()
+    firebase.signOut();
   });
 };
